@@ -42,7 +42,7 @@ public class SecurityConfig {
 			.formLogin(form -> form
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/user/form", true)
+                .defaultSuccessUrl("/home", true)// Atention: redirt to"/user/form"
                 .failureUrl("/login?error=true")
 			)
             .logout(logout -> logout

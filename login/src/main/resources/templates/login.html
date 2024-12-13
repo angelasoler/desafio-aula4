@@ -16,9 +16,19 @@
                     <h4>Login</h4>
                 </div>
                 <div class="card-body">
+                    <!-- mensagem de erro -->
+                    <div th:if="${loginError}" class="alert alert-danger" role="alert">
+                        <p th:text="${loginError}"></p>
+                    </div>
+                    <!-- mensagem de logout -->
+                    <div th:if="${logoutMessage}" class="alert alert-success" role="alert">
+                        <p th:text="${logoutMessage}"></p>
+                    </div>
+                    <!-- mensagem de sucesso após registro -->
                     <div th:if="${successMessage}" class="text-success mb-3">
                         <p th:text="${successMessage}"></p>
                     </div>
+                    <!--formulario-->
                     <form th:action="@{/login}" method="post">
                         <div class="form-group">
                             <label for="username">Username</label>
