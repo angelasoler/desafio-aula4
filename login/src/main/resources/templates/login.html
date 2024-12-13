@@ -41,6 +41,34 @@
                         <button type="submit" class="btn btn-primary">Login</button>
                         <button type="button" onclick="location.href='/register'" class="btn btn-secondary">Register</button>
                     </form>
+
+                    <script>
+                        $(document).ready(function(){
+                            $('#loginForm').submit(function(event){
+                                event.preventDefault();
+                                
+                                var username = $('#username').val();
+                                var password = $('#password').val();
+                                
+                                $.ajax({
+                                    url: '/api/auth/login',
+                                    type: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({username: username, password: password}),
+                                    success: function(response){
+                                        // Redirecionar para student-registration com JWT no cookie
+                                        window.location.href = 'http://localhost:8081/user/form';
+                                    },
+                                    error: function(xhr){
+                                        // Exibir mensagem de erro
+                                        var errorMsg = xhr.responseJSON.message || 'Login failed';
+                                        $('.alert-danger').remove();
+                                        $('.card-body').prepend('<div class="alert alert-danger" role="alert"><p>' + errorMsg + '</p></div>');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>
