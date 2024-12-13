@@ -16,6 +16,9 @@
                     <h4>Login</h4>
                 </div>
                 <div class="card-body">
+                    <div th:if="${successMessage}" class="text-success mb-3">
+                        <p th:text="${successMessage}"></p>
+                    </div>
                     <form th:action="@{/login}" method="post">
                         <div class="form-group">
                             <label for="username">Username</label>

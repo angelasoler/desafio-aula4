@@ -40,14 +40,16 @@ public class SecurityConfig {
 				.anyRequest().authenticated()
 			)
 			.formLogin(form -> form
-				.loginPage("/login")
-				.successHandler((request, response, authentication) -> {
-					response.setContentType("application/json");
-					response.getWriter().write(
-						"{\"message\":\"Login successful\",\"redirectUrl\":\"/courses\"}"
-					);
-				})
+                .loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/user/form", true)
+                .failureUrl("/login?error=true")
 			)
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout=true")
+                .permitAll()
+            )
 			.userDetailsService(userDetailsService)
 			.headers(headers -> headers.frameOptions(frame -> frame.disable())); // Para H2 Console
 
