@@ -1,6 +1,6 @@
 package acc.br.studentregistration.config;
 
-import acc.br.studentregistration.filter.JwtAuthenticationFilter;
+import acc.br.student_registration.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

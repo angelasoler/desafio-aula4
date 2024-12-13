@@ -1,6 +1,6 @@
-package acc.br.studentregistration.filter;
+package acc.br.student_registration.filter;
 
-import acc.br.studentregistration.util.JwtUtil;
+import acc.br.student_registration.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,18 +19,15 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    
+
     @Autowired
     private JwtUtil jwtUtil;
-    
-    @Autowired
-    private UserDetailsService userDetailsService;
     
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        
+                                    FilterChain filterChain)
+                                    throws ServletException, IOException {
         String token = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -41,26 +38,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }
-        
-        String username = null;
-        
-        if (token != null) {
-            try {
-                username = jwtUtil.getUsernameFromJwt(token);
-            } catch (Exception e) {
-                // Log the exception (opcional)
-            }
-        }
-        
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (jwtUtil.validateJwtToken(token)) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
-        }
-        
+
         filterChain.doFilter(request, response);
     }
 }
+

@@ -1,4 +1,4 @@
-package acc.br.studentregistration.util;
+package acc.br.student_registration.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
